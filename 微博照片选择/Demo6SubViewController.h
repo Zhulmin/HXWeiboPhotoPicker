@@ -2,12 +2,12 @@
 //  Demo6SubViewController.h
 //  微博照片选择
 //
-//  Created by 洪欣 on 2017/7/26.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 2017/7/26.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@class HXPhotoManager;
+@class MiOPhotoManager;
 @interface Demo6SubViewController : UIViewController
-@property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) MiOPhotoManager *manager;
 @end

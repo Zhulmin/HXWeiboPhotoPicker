@@ -2,12 +2,12 @@
 //  Demo1ViewController.m
 //  微博照片选择
 //
-//  Created by 洪欣 on 17/2/17.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 17/2/17.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import "Demo1ViewController.h"
-#import "HXPhotoViewController.h"
+#import "MiOPhotoViewController.h"
 
 @interface Demo1ViewController ()<HXPhotoViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *total;
@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *video;
 @property (weak, nonatomic) IBOutlet UILabel *original;
 @property (weak, nonatomic) IBOutlet UISwitch *camera;
-@property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) MiOPhotoManager *manager;
 @property (weak, nonatomic) IBOutlet UITextField *photoText;
 @property (weak, nonatomic) IBOutlet UITextField *videoText;
 @property (weak, nonatomic) IBOutlet UITextField *columnText;
@@ -26,10 +26,10 @@
 
 @implementation Demo1ViewController
 
-- (HXPhotoManager *)manager
+- (MiOPhotoManager *)manager
 {
     if (!_manager) {
-        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager = [[MiOPhotoManager alloc] initWithType:MiOPhotoManagerSelectedTypePhotoAndVideo];
         _manager.videoMaxNum = 5;
     }
     return _manager;
@@ -45,7 +45,7 @@
     self.manager.photoMaxNum = self.photoText.text.integerValue;
     self.manager.videoMaxNum = self.videoText.text.integerValue;
     self.manager.rowCount = self.columnText.text.integerValue;
-    HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
+    MiOPhotoViewController *vc = [[MiOPhotoViewController alloc] init];
     vc.delegate = self;
     vc.manager = self.manager;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];

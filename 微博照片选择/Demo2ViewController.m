@@ -2,22 +2,22 @@
 //  Demo2ViewController.m
 //  微博照片选择
 //
-//  Created by 洪欣 on 17/2/17.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 17/2/17.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import "Demo2ViewController.h"
-#import "HXPhotoViewController.h"
-#import "HXPhotoView.h" 
+#import "MiOPhotoViewController.h"
+#import "MiOPhotoView.h" 
 @interface Demo2ViewController ()<HXPhotoViewDelegate>
-@property (strong, nonatomic) HXPhotoManager *manager;
-@property (strong, nonatomic) HXPhotoView *photoView;
+@property (strong, nonatomic) MiOPhotoManager *manager;
+@property (strong, nonatomic) MiOPhotoView *photoView;
 @end
 
 @implementation Demo2ViewController
 
 /**
-    HXPhotoManager 照片管理类的属性介绍
+    MiOPhotoManager 照片管理类的属性介绍
  
     是否把相机功能放在外面 默认 NO   使用 HXPhotoView 时有用
     outerCamera;
@@ -60,9 +60,9 @@
  
  */
 
-- (HXPhotoManager *)manager {
+- (MiOPhotoManager *)manager {
     if (!_manager) {
-        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager = [[MiOPhotoManager alloc] initWithType:MiOPhotoManagerSelectedTypePhotoAndVideo];
         _manager.openCamera = YES;
         _manager.cacheAlbum = YES;
 //        _manager.outerCamera = YES;
@@ -82,7 +82,7 @@
     self.navigationController.navigationBar.translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     CGFloat width = self.view.frame.size.width;
-    HXPhotoView *photoView = [HXPhotoView photoManager:self.manager];
+    MiOPhotoView *photoView = [MiOPhotoView photoManager:self.manager];
     photoView.frame = CGRectMake(12, 100, width - 24, 0);
     photoView.delegate = self;
     photoView.backgroundColor = [UIColor whiteColor];
@@ -94,7 +94,7 @@
 - (void)didNavBtnClick {
     [self.photoView goPhotoViewController];
 } 
-- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+- (void)photoView:(MiOPhotoView *)photoView changeComplete:(NSArray<MiOPhotoModel *> *)allList photos:(NSArray<MiOPhotoModel *> *)photos videos:(NSArray<MiOPhotoModel *> *)videos original:(BOOL)isOriginal {
     NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
 //    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
 //        NSSLog(@"%@",images);
@@ -200,10 +200,10 @@
      
      */
 }
-- (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+- (void)photoView:(MiOPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
     NSSLog(@"%@",networkPhotoUrl);
 }
-- (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
+- (void)photoView:(MiOPhotoView *)photoView updateFrame:(CGRect)frame {
     NSSLog(@"%@",NSStringFromCGRect(frame));
 }
 

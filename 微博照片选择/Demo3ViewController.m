@@ -2,25 +2,25 @@
 //  Demo3ViewController.m
 //  微博照片选择
 //
-//  Created by 洪欣 on 17/2/17.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 17/2/17.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import "Demo3ViewController.h"
-#import "HXPhotoViewController.h"
-#import "HXPhotoView.h"
+#import "MiOPhotoViewController.h"
+#import "MiOPhotoView.h"
 
  
 
 @interface Demo3ViewController ()<HXPhotoViewDelegate>
-@property (strong, nonatomic) HXPhotoManager *manager;
-@property (weak, nonatomic) HXPhotoView *photoView;
+@property (strong, nonatomic) MiOPhotoManager *manager;
+@property (weak, nonatomic) MiOPhotoView *photoView;
 @end
 
 @implementation Demo3ViewController
 
 /**
- HXPhotoManager 照片管理类的属性介绍
+ MiOPhotoManager 照片管理类的属性介绍
  
  showDeleteNetworkPhotoAlert; 删除网络图片时是否显示Alert // 默认显示
 
@@ -68,16 +68,16 @@
  
  */
 
-- (HXPhotoManager *)manager
+- (MiOPhotoManager *)manager
 {
     if (!_manager) {
-        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
+        _manager = [[MiOPhotoManager alloc] initWithType:MiOPhotoManagerSelectedTypePhoto];
         //        _manager.openCamera = NO;
         _manager.outerCamera = YES;
         _manager.showDeleteNetworkPhotoAlert = NO;
         _manager.saveSystemAblum = YES;
         _manager.photoMaxNum = 2; // 这里需要注意 !!!  第一次传入的最大照片数 是可选最大数 减去 网络照片数量   即   photoMaxNum = maxNum - networkPhotoUrls.count  当点击删除网络照片时, photoMaxNum 内部会自动加1
-        _manager.videoMaxNum = 0;  // 如果有网络图片且选择类型为HXPhotoManagerSelectedTypePhotoAndVideo 又设置了视频最大数且不为0时,
+        _manager.videoMaxNum = 0;  // 如果有网络图片且选择类型为MiOPhotoManagerSelectedTypePhotoAndVideo 又设置了视频最大数且不为0时,
 //        那么在选择照片列表最大只能选择 photoMaxNum + videoMaxNum
 //        在外面collectionView上最大数是 photoMaxNum + networkPhotoUrls.count + videoMaxNum
         _manager.maxNum = 6;
@@ -94,7 +94,7 @@
     self.navigationController.navigationBar.translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     CGFloat width = self.view.frame.size.width;
-    HXPhotoView *photoView = [HXPhotoView photoManager:self.manager];
+    MiOPhotoView *photoView = [MiOPhotoView photoManager:self.manager];
     photoView.frame = CGRectMake(12, 100, width - 24, 0);
     photoView.delegate = self;
     photoView.backgroundColor = [UIColor whiteColor];
@@ -120,10 +120,10 @@
     [self.view showImageHUDText:[NSString stringWithFormat:@"已下载的网络图片数量%ld张",[self.photoView downloadNumberForNetworkingPhoto]]];
 }
 
-- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+- (void)photoView:(MiOPhotoView *)photoView changeComplete:(NSArray<MiOPhotoModel *> *)allList photos:(NSArray<MiOPhotoModel *> *)photos videos:(NSArray<MiOPhotoModel *> *)videos original:(BOOL)isOriginal {
     NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
     
-    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
+    [MiOPhohoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
         NSSLog(@"%@",images);
     }];
     /*
@@ -222,16 +222,16 @@
     
 }
 
-- (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+- (void)photoView:(MiOPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
     NSSLog(@"%@",networkPhotoUrl);
 }
 
-- (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame
+- (void)photoView:(MiOPhotoView *)photoView updateFrame:(CGRect)frame
 {
     NSSLog(@"%@",NSStringFromCGRect(frame));
 }
 
-- (void)photoViewAllNetworkingPhotoDownloadComplete:(HXPhotoView *)photoView {
+- (void)photoViewAllNetworkingPhotoDownloadComplete:(MiOPhotoView *)photoView {
     NSSLog(@"所有网络图片下载完成");
     /*
      网络图片全部下载完成之后会的调一下这个方法

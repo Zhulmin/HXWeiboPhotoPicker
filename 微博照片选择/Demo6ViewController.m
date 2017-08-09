@@ -2,25 +2,25 @@
 //  Demo6ViewController.m
 //  微博照片选择
 //
-//  Created by 洪欣 on 2017/7/26.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 2017/7/26.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import "Demo6ViewController.h"
 #import "Demo6SubViewController.h"
-#import "HXPhotoViewController.h"
-#import "HXFullScreenCameraViewController.h"
-#import "HXCameraViewController.h"
+#import "MiOPhotoViewController.h"
+#import "MiOFullScreenCameraViewController.h"
+#import "MiOCameraViewController.h"
 
 @interface Demo6ViewController ()<UIActionSheetDelegate,HXPhotoViewControllerDelegate,HXCameraViewControllerDelegate,HXFullScreenCameraViewControllerDelegate,UIAlertViewDelegate>
-@property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) MiOPhotoManager *manager;
 @end
 
 @implementation Demo6ViewController
 
-- (HXPhotoManager *)manager {
+- (MiOPhotoManager *)manager {
     if (!_manager) {
-        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager = [[MiOPhotoManager alloc] initWithType:MiOPhotoManagerSelectedTypePhotoAndVideo];
         _manager.outerCamera = YES;
         _manager.openCamera = NO;
         _manager.saveSystemAblum = YES;
@@ -66,7 +66,7 @@
             return;
         }
         HXCameraType type = 0;
-        if (self.manager.type == HXPhotoManagerSelectedTypePhotoAndVideo) {
+        if (self.manager.type == MiOPhotoManagerSelectedTypePhotoAndVideo) {
             if (self.manager.endSelectedVideos.count >= self.manager.videoMaxNum && self.manager.endSelectedPhotos.count < self.manager.photoMaxNum + self.manager.networkPhotoUrls.count) {
                 type = HXCameraTypePhoto;
             }else if (self.manager.endSelectedPhotos.count >= self.manager.photoMaxNum + self.manager.networkPhotoUrls.count && self.manager.endSelectedVideos.count < self.manager.videoMaxNum) {
@@ -77,13 +77,13 @@
             }else {
                 type = HXCameraTypePhotoAndVideo;
             }
-        }else if (self.manager.type == HXPhotoManagerSelectedTypePhoto) {
+        }else if (self.manager.type == MiOPhotoManagerSelectedTypePhoto) {
             if (self.manager.endSelectedPhotos.count >= self.manager.photoMaxNum + self.manager.networkPhotoUrls.count) {
                 [self.view showImageHUDText:@"照片已达最大数"];
                 return;
             }
             type = HXCameraTypePhoto;
-        }else if (self.manager.type == HXPhotoManagerSelectedTypeVideo) {
+        }else if (self.manager.type == MiOPhotoManagerSelectedTypeVideo) {
             if (self.manager.endSelectedVideos.count >= self.manager.videoMaxNum) {
                 [self.view showImageHUDText:@"视频已达最大数!"];
                 return;
@@ -92,7 +92,7 @@
         }
 
         if (self.manager.showFullScreenCamera) {
-            HXFullScreenCameraViewController *vc1 = [[HXFullScreenCameraViewController alloc] init];
+            MiOFullScreenCameraViewController *vc1 = [[MiOFullScreenCameraViewController alloc] init];
             vc1.delegate = self;
             vc1.type = type;
             vc1.photoManager = self.manager;
@@ -102,7 +102,7 @@
                 [self presentViewController:vc1 animated:YES completion:nil];
             }
         }else {
-            HXCameraViewController *vc = [[HXCameraViewController alloc] init];
+            MiOCameraViewController *vc = [[MiOCameraViewController alloc] init];
             vc.delegate = self;
             vc.type = type;
             vc.photoManager = self.manager;
@@ -113,7 +113,7 @@
             }
         }
     }else if (buttonIndex == 1){
-        HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
+        MiOPhotoViewController *vc = [[MiOPhotoViewController alloc] init];
         vc.manager = self.manager;
         vc.delegate = self;
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
@@ -124,11 +124,11 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
-- (void)fullScreenCameraDidNextClick:(HXPhotoModel *)model {
+- (void)fullScreenCameraDidNextClick:(MiOPhotoModel *)model {
     [self cameraDidNextClick:model];
 }
 
-- (void)cameraDidNextClick:(HXPhotoModel *)model {
+- (void)cameraDidNextClick:(MiOPhotoModel *)model {
     // 判断类型
     if (model.type == HXPhotoModelMediaTypeCameraPhoto) {
         [self.manager.endCameraPhotos addObject:model];
@@ -136,7 +136,7 @@
         if (self.manager.endSelectedPhotos.count != self.manager.photoMaxNum) {
             if (!self.manager.selectTogether) {
                 if (self.manager.endSelectedList.count > 0) {
-                    HXPhotoModel *phMd = self.manager.endSelectedList.firstObject;
+                    MiOPhotoModel *phMd = self.manager.endSelectedList.firstObject;
                     if ((phMd.type == HXPhotoModelMediaTypePhoto || phMd.type == HXPhotoModelMediaTypeLivePhoto) || (phMd.type == HXPhotoModelMediaTypePhotoGif || phMd.type == HXPhotoModelMediaTypeCameraPhoto)) {
                         [self.manager.endSelectedCameraPhotos insertObject:model atIndex:0];
                         [self.manager.endSelectedPhotos addObject:model];
@@ -165,7 +165,7 @@
         if (self.manager.endSelectedVideos.count != self.manager.videoMaxNum) {
             if (!self.manager.selectTogether) {
                 if (self.manager.endSelectedList.count > 0) {
-                    HXPhotoModel *phMd = self.manager.endSelectedList.firstObject;
+                    MiOPhotoModel *phMd = self.manager.endSelectedList.firstObject;
                     if (phMd.type == HXPhotoModelMediaTypeVideo || phMd.type == HXPhotoModelMediaTypeCameraVideo) {
                         [self.manager.endSelectedCameraVideos insertObject:model atIndex:0];
                         [self.manager.endSelectedVideos addObject:model];
@@ -194,7 +194,7 @@
     [self photoViewControllerDidNext:self.manager.endSelectedList.mutableCopy Photos:self.manager.endSelectedPhotos.mutableCopy Videos:self.manager.endSelectedVideos.mutableCopy Original:self.manager.endIsOriginal];
 }
 
-- (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
+- (void)photoViewControllerDidNext:(NSArray<MiOPhotoModel *> *)allList Photos:(NSArray<MiOPhotoModel *> *)photos Videos:(NSArray<MiOPhotoModel *> *)videos Original:(BOOL)original {
     Demo6SubViewController *vc = [[Demo6SubViewController alloc] init];
     vc.manager = self.manager;
     [self.navigationController pushViewController:vc animated:YES];

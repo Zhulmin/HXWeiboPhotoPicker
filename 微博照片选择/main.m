@@ -2,8 +2,8 @@
 //  main.m
 //  微博照片选择
 //
-//  Created by 洪欣 on 17/2/8.
-//  Copyright © 2017年 洪欣. All rights reserved.
+//  Created by MiO on 17/2/8.
+//  Copyright © 2017年 MiO. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
