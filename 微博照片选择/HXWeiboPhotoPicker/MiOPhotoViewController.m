@@ -455,7 +455,7 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
             self.navigationItem.rightBarButtonItem.enabled = YES;
             [self.rightBtn setTitle:[NSString stringWithFormat:@"%@(%ld)",[NSBundle hx_localizedStringForKey:@"下一步"],self.manager.selectedList.count] forState:UIControlStateNormal];
             [self.rightBtn setBackgroundColor:[UIColor colorWithRed:253/255.0 green:142/255.0 blue:36/255.0 alpha:1]];
-            self.rightBtn.layer.borderWidth = 0;
+//            self.rightBtn.layer.borderWidth = 0;
             CGFloat rightBtnH = self.rightBtn.frame.size.height;
             CGFloat rightBtnW = [MiOPhohoTools getTextWidth:self.rightBtn.currentTitle withHeight:rightBtnH fontSize:14];
             self.rightBtn.frame = CGRectMake(0, 0, rightBtnW + 20, rightBtnH);
@@ -464,7 +464,7 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
             [self.rightBtn setTitle:[NSBundle hx_localizedStringForKey:@"下一步"] forState:UIControlStateNormal];
             [self.rightBtn setBackgroundColor:[UIColor whiteColor]];
             self.rightBtn.frame = CGRectMake(0, 0, 60, 25);
-            self.rightBtn.layer.borderWidth = 0.5;
+//            self.rightBtn.layer.borderWidth = 0.5;
         }
     }
     
@@ -1234,7 +1234,7 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
         self.navigationItem.rightBarButtonItem.enabled = YES;
         [self.rightBtn setTitle:[NSString stringWithFormat:@"%@(%ld)",[NSBundle hx_localizedStringForKey:@"下一步"],self.manager.selectedList.count] forState:UIControlStateNormal];
         [self.rightBtn setBackgroundColor:[UIColor colorWithRed:253/255.0 green:142/255.0 blue:36/255.0 alpha:1]];
-        self.rightBtn.layer.borderWidth = 0;
+//        self.rightBtn.layer.borderWidth = 0;
         CGFloat rightBtnH = self.rightBtn.frame.size.height;
         CGFloat rightBtnW = [MiOPhohoTools getTextWidth:self.rightBtn.currentTitle withHeight:rightBtnH fontSize:14];
         self.rightBtn.frame = CGRectMake(0, 0, rightBtnW + 20, rightBtnH);
@@ -1248,7 +1248,7 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
         [self.rightBtn setTitle:[NSBundle hx_localizedStringForKey:@"下一步"] forState:UIControlStateNormal];
         [self.rightBtn setBackgroundColor:[UIColor whiteColor]];
         self.rightBtn.frame = CGRectMake(0, 0, 60, 25);
-        self.rightBtn.layer.borderWidth = 0.5;
+//        self.rightBtn.layer.borderWidth = 0.5;
     }
 }
 
@@ -1451,9 +1451,9 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
         [_rightBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         [_rightBtn setTitleColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         _rightBtn.layer.masksToBounds = YES;
-        _rightBtn.layer.cornerRadius = 2;
-        _rightBtn.layer.borderWidth = 0.5;
-        _rightBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        _rightBtn.layer.cornerRadius = 12.5f;
+//        _rightBtn.layer.borderWidth = 0.5;
+//        _rightBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [_rightBtn setBackgroundColor:[UIColor whiteColor]];
         [_rightBtn addTarget:self action:@selector(didNextClick:) forControlEvents:UIControlEventTouchUpInside];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -1510,32 +1510,42 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
     
     UIButton *previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [previewBtn setTitle:[NSBundle hx_localizedStringForKey:@"预览"] forState:UIControlStateNormal];
-    [previewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [previewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [previewBtn setTitleColor:[UIColor colorWithRed:112/255.0 green:112/255.0 blue:112/255.0 alpha:1.0] forState:UIControlStateNormal];
     [previewBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    [previewBtn setBackgroundImage:[MiOPhohoTools hx_imageNamed:@"compose_photo_preview_seleted@2x.png"] forState:UIControlStateNormal];
-    [previewBtn setBackgroundImage:[MiOPhohoTools hx_imageNamed:@"compose_photo_preview_disable@2x.png"] forState:UIControlStateDisabled];
+    [previewBtn setBackgroundColor:[UIColor whiteColor]];
+//    [previewBtn setBackgroundImage:[MiOPhohoTools hx_imageNamed:@"compose_photo_preview_seleted@2x.png"] forState:UIControlStateNormal];
+//    [previewBtn setBackgroundImage:[MiOPhohoTools hx_imageNamed:@"compose_photo_preview_disable@2x.png"] forState:UIControlStateDisabled];
     previewBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [previewBtn addTarget:self action:@selector(didPreviewClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:previewBtn];
-    CGFloat previewBtnX = 10;
-    CGFloat previewBtnW = [MiOPhohoTools getTextWidth:previewBtn.currentTitle withHeight:15 fontSize:14] + 20;
+    CGFloat previewBtnX = 15;
+//    CGFloat previewBtnW = [MiOPhohoTools getTextWidth:previewBtn.currentTitle withHeight:15 fontSize:14] + 20;
+    CGFloat previewBtnW = 60;
     if (previewBtnW < previewBtn.currentBackgroundImage.size.width) {
         previewBtnW = previewBtn.currentBackgroundImage.size.width;
     }
-    CGFloat previewBtnH = previewBtn.currentBackgroundImage.size.height;
+//    CGFloat previewBtnH = previewBtn.currentBackgroundImage.size.height;
+    CGFloat previewBtnH = 26;
     previewBtn.frame = CGRectMake(previewBtnX, 0, previewBtnW, previewBtnH);
     previewBtn.center = CGPointMake(previewBtn.center.x, self.frame.size.height / 2);
+    
+    // 设置圆角: add by rain
+    previewBtn.layer.cornerRadius = previewBtnH * 0.5f;
+    previewBtn.layer.masksToBounds = YES;
     self.previewBtn = previewBtn;
     
     UIButton *originalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [originalBtn setBackgroundColor:[UIColor whiteColor]];
     [originalBtn setTitle:[NSBundle hx_localizedStringForKey:@"原图"] forState:UIControlStateNormal];
-    [originalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [originalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [originalBtn setTitleColor:[UIColor colorWithRed:112/255.0 green:112/255.0 blue:112/255.0 alpha:1.0] forState:UIControlStateNormal];
+    
     [originalBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    originalBtn.layer.masksToBounds = YES;
-    originalBtn.layer.cornerRadius = 2.2;
-    originalBtn.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:0.7].CGColor;
-    originalBtn.layer.borderWidth = 0.7;
+//    originalBtn.layer.masksToBounds = YES;
+//    originalBtn.layer.cornerRadius = 2.2;
+//    originalBtn.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:0.7].CGColor;
+//    originalBtn.layer.borderWidth = 0.7;
     [originalBtn setImage:[MiOPhohoTools hx_imageNamed:@"椭圆-1@2x.png"] forState:UIControlStateNormal];
     [originalBtn setImage:[MiOPhohoTools hx_imageNamed:@"椭圆-1-拷贝@2x.png"] forState:UIControlStateSelected];
     originalBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -1546,7 +1556,10 @@ static NSString *PhotoViewCellId = @"PhotoViewCellId";
     [self addSubview:originalBtn];
     CGFloat originalBtnX = CGRectGetMaxX(previewBtn.frame)+10;
     CGFloat originalBtnH = previewBtnH;
-    CGFloat originalBtnW = [MiOPhohoTools getTextWidth:originalBtn.currentTitle withHeight:15 fontSize:14] + 35;
+    originalBtn.layer.cornerRadius = originalBtnH * 0.5f;
+    originalBtn.layer.masksToBounds = YES;
+//    CGFloat originalBtnW = [MiOPhohoTools getTextWidth:originalBtn.currentTitle withHeight:15 fontSize:14] + 35;
+    CGFloat originalBtnW = 76;
     if (originalBtnW < 65) {
         originalBtnW = 65;
     }
